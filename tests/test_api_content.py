@@ -11,7 +11,7 @@ from .conftest import image_bytes, post_image
 def test_health_degraded_without_model(client_no_model):
     h = client_no_model.get("/api/health").json()
     assert h["status"] == "degraded" and h["model_loaded"] is False
-    assert set(h) == {"status", "version", "model_loaded", "clip_model", "sklearn_version", "classes", "model_version", "error"}
+    assert set(h) == {"status", "version", "model_loaded", "model_state", "clip_model", "sklearn_version", "classes", "model_version", "error"}
     assert h["error"]
 
 
@@ -138,7 +138,8 @@ def test_weird_file_names_are_harmless(client_no_model):
 def test_model_unavailable_is_503_json(client_no_model):
     r = post_image(client_no_model, image_bytes())
     assert r.status_code == 503
-    assert r.json() == {"error": {"code": "model_unavailable", "message": "Analysis is temporarily unavailable. Please try again later."}}
+    body = r.json()["error"]
+    assert body["code"] == "model_unavailable" and body["message"].startswith("Analysis is temporarily unavailable.")
 
 
 def test_rate_limit_on_analyze_and_chat(settings):

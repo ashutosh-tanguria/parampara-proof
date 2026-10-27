@@ -21,6 +21,7 @@ def settings(tmp_path):
     s = load_settings()
     s.upload_dir = tmp_path / "uploads"
     s.rate_limit_per_min = 0  # disabled unless a test enables it
+    s.data_dir = tmp_path / "data"
     s.dist_dir = tmp_path / "no-dist"
     return s
 

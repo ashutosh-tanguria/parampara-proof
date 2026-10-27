@@ -144,7 +144,7 @@ def test_health_snapshot_with_model(client):
     assert h["classes"] == CLASSES
     assert h["clip_model"] == "openai/clip-vit-base-patch32" and h["sklearn_version"] == "1.6.1" and h["error"] is None
     assert h["model_version"] == "CLIP openai/clip-vit-base-patch32 + LogisticRegression (sklearn 1.6.1)"
-    assert set(h) == {"status", "version", "model_loaded", "clip_model", "sklearn_version", "classes", "model_version", "error"}
+    assert set(h) == {"status", "version", "model_loaded", "model_state", "clip_model", "sklearn_version", "classes", "model_version", "error"}
 
 
 def test_analyze_end_to_end_and_fetch_by_id(client, settings):
