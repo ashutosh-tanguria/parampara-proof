@@ -75,7 +75,7 @@ def embed_texts(prompts, clip):
 
 
 def make_classifier():
-    return LogisticRegression(max_iter=2000, C=1.0)
+    return LogisticRegression(max_iter=3000, C=10, class_weight="balanced")  # same settings as the saved clf.joblib
 
 
 def feature_stats(X, y, classes, clip_features, clip):
