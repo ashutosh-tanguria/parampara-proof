@@ -1,0 +1,51 @@
+{
+  "_comment": "Tolerant expectations used by tests/test_model.py. Measured with scripts/calibrate_guard.py on 2026-10-27 (CLIP ViT-B/32 + LogisticRegression, scikit-learn 1.6.1). The model is small and trained on Wikimedia photos; these samples are AI-generated illustrations, so it is out of its training distribution. Values are observations, not guarantees.",
+  "artwork_threshold": 0.5,
+  "samples": {
+    "sample-warli.jpg": {
+      "kind": "painting",
+      "automated_art_form": "warli",
+      "observed": {"artwork_p": 0.996, "gond": 0.01, "madhubani": 0.10, "pattachitra": 0.16, "warli": 0.74},
+      "expect": {"looks_like_artwork": true, "top1": "warli", "warli_min": 0.5}
+    },
+    "sample-madhubani.jpg": {
+      "kind": "painting",
+      "automated_art_form": "madhubani",
+      "observed": {"artwork_p": 0.999, "gond": 0.04, "madhubani": 0.35, "pattachitra": 0.57, "warli": 0.05},
+      "expect": {"looks_like_artwork": true, "madhubani_in_top2": true},
+      "note": "Madhubani is the weakest class (F1 0.49). The model ranks Pattachitra first on this illustration."
+    },
+    "sample-gond.jpg": {
+      "kind": "painting",
+      "automated_art_form": "gond",
+      "observed": {"artwork_p": 1.0, "gond": 0.14, "madhubani": 0.54, "pattachitra": 0.24, "warli": 0.09},
+      "expect": {"looks_like_artwork": true},
+      "known_miss": "Gond is ranked third. Do not assert a correct class here; this documents a domain-shift failure of the model on AI-generated illustrations."
+    },
+    "sample-kalamkari.jpg": {
+      "kind": "painting",
+      "automated_art_form": null,
+      "expect": {"guidance_only": true, "probabilities": {}}
+    },
+    "sample-pottery.jpg": {
+      "kind": "craft photo",
+      "automated_art_form": null,
+      "expect": {"guidance_only": true, "probabilities": {}}
+    },
+    "junk-blank.jpg": {
+      "kind": "junk",
+      "observed": {"artwork_p": 0.027},
+      "expect": {"looks_like_artwork": false}
+    },
+    "junk-text-document.png": {
+      "kind": "junk",
+      "observed": {"artwork_p": 0.003},
+      "expect": {"looks_like_artwork": false}
+    }
+  },
+  "wrong_style": {
+    "image": "sample-warli.jpg",
+    "submitted_as": "madhubani",
+    "expect": "style_match_score is lower than when the same image is submitted as warli, and predicted_art_form stays warli"
+  }
+}

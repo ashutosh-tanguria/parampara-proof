@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    image: parampara-proof:latest
+    ports:
+      - "8000:8000"
+    environment:
+      LOG_LEVEL: INFO
+      UPLOAD_TTL_HOURS: "24"
+      MAX_UPLOAD_MB: "10"
+      RATE_LIMIT_PER_MIN: "20"
+    volumes:
+      - uploads:/data/uploads
+    restart: unless-stopped
+
+volumes:
+  uploads:

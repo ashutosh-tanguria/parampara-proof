@@ -121,7 +121,7 @@ def main():
     clip = load_clip()
     X = embed_images(paths, clip)
     classes = sorted(ARTS)
-    y = np.array([classes.index(l) for l in labels])
+    y = np.array([classes.index(lab) for lab in labels])
 
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)
     pred = cross_val_predict(make_classifier(), X, y, cv=cv)
