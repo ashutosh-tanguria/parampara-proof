@@ -19,10 +19,13 @@ const ROUTES: Array<[string, string]> = [
 ]
 const WIDTHS = [360, 390, 768, 1024, 1280, 1536, 1920]
 const SHOT_WIDTHS = new Set([360, 390, 768, 1280, 1920])
-const OUT = path.resolve(__dirname, '..', '..', 'docs', 'screenshots')
+const OUT = path.resolve(import.meta.dirname, '..', '..', 'docs', 'screenshots')
 
 test.describe('every route at every breakpoint', () => {
-  test.skip(({ browserName }, testInfo) => testInfo.project.name !== 'desktop', 'viewport is set per test; run once')
+  // The viewport is set per test, so run this block once (desktop project) instead of twice.
+  test.beforeEach(({ page: _page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop')
+  })
   for (const [name, url] of ROUTES) {
     for (const width of WIDTHS) {
       test(`${name} @ ${width}px`, async ({ page }) => {

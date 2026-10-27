@@ -1,7 +1,7 @@
 import { expect, type Page } from '@playwright/test'
 import path from 'node:path'
 
-export const SAMPLES = path.resolve(__dirname, '..', '..', 'sample_data')
+export const SAMPLES = path.resolve(import.meta.dirname, '..', '..', 'sample_data')
 
 /** Skip the first-visit splash so tests start on the real page. */
 export async function skipSplash(page: Page) {

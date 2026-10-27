@@ -188,7 +188,7 @@ test('community: sample tags, optimistic like with rollback on failure, share va
   await expect(page.getByText(/at least 3 characters/)).toBeVisible()
   await expect(page.getByText(/choose an art form/i)).toBeVisible()
   await page.getByLabel('Title').fill('My first Warli village')
-  await page.getByLabel('Art form').selectOption('warli')
+  await page.getByLabel('Art form', { exact: true }).selectOption('warli')
   await page.getByRole('button', { name: 'Share', exact: true }).click()
   await expect(page.getByText('Shared by you')).toBeVisible()
 })

@@ -157,3 +157,13 @@ def test_manifest_detects_sklearn_version_mismatch(model_copy, monkeypatch):
     monkeypatch.setattr(sklearn, '__version__', '9.9.9')
     with pytest.raises(ModelIntegrityError, match='scikit-learn'):
         check_manifest(model_copy)
+
+
+def test_quote_attributions_are_stripped(kb):
+    from backend.content import clean_quote
+
+    for slug, info in kb.items():
+        q = clean_quote(info["quote"])
+        assert q and "Master" not in q and "Traditional Artist" not in q, slug
+    assert clean_quote("Gond is nice. — Gond Master Artist") == "Gond is nice."
+    assert clean_quote("A line - with a dash inside the sentence continues here") == "A line - with a dash inside the sentence continues here"
