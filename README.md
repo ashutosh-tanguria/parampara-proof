@@ -108,6 +108,18 @@ python ../scripts/verify_model.py             # model file checksums
 ```
 Latest results: `docs/TEST_REPORT.md`.
 
+## Demo: accounts, craftspeople videos, marketplace and messages
+These pages are a **demo** of where the platform could go. Everything seeded is labelled "Demo data"; nobody is verified; the marketplace has no checkout and takes no payments.
+```powershell
+.\.venv\Scripts\python.exe scripts\seed_demo.py     # once: creates 3 demo craftspeople, 1 demo learner, 6 placeholder videos, 8 listings
+```
+Data lives in a local SQLite file under `backend/data/` (git-ignored). Demo logins (password `Demo-Pass-2026`, local demo only): `demo.madhubani@example.com`, `demo.warli@example.com`, `demo.gond@example.com` (Craftsperson) and `demo.learner@example.com` (Learner).
+- **Login:** username (email-style) + password; passwords are hashed with scrypt; the session is a signed HTTP-only cookie. Set `SESSION_SECRET` for anything public (a warning is logged while the built-in development secret is in use).
+- **Videos:** craftspeople add a YouTube link or upload MP4/WebM (max 50 MB, checked by content). YouTube loads only after you press play.
+- **Messages:** one-to-one text, polled every few seconds, shown as plain text only.
+- **Marketplace:** indicative prices in INR, up to 4 images per listing (JPG/PNG/WebP, 5 MB each). No "verified" or "authentic" labels anywhere.
+- Demo listing pictures are the team's AI-generated illustrations, not real products. Demo videos are placeholders with no video attached.
+
 ## Docker
 ```bash
 docker compose up --build        # then open http://localhost:8000
@@ -133,6 +145,10 @@ Copy `.env.example` to `.env` (optional). Real environment variables win over `.
 | `ANALYZE_TIMEOUT_S` | `60` | Per-analysis timeout (504 afterwards) |
 | `CLEANUP_INTERVAL_S` | `600` | How often expired uploads are removed |
 | `STRICT_MODEL_CHECK` | `0` | `1` = refuse to start if the model cannot load or fails the checksum, class or version check. Otherwise the API starts "degraded" and `/api/analyze` returns 503 |
+| `DATA_DIR` | `backend/data` | SQLite database and uploaded videos/listing images |
+| `SESSION_SECRET` | dev default (warns) | Secret for signing login cookies; set your own for any public site |
+| `COOKIE_SECURE` | `0` | `1` marks the login cookie Secure (use with HTTPS) |
+| `SESSION_DAYS` | `7` | Login lifetime |
 | `FRAME_ANCESTORS` | `'none'` | CSP `frame-ancestors` (set to `https://huggingface.co` for a Space) |
 
 ## Deployment notes

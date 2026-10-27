@@ -11,13 +11,13 @@ All images shown on the site (hero, art form cards, galleries, samples, communit
 | `warli-brushes` | `... 10.23.14 AM11.jpeg` |
 | `warli-village` | `... 10.23.18 AM7.jpeg` |
 | `warli-dance` | `... 10.23.19 AM8.jpeg` |
-| `madhubani-woman-peacock` | `... 10.23.18 AM555.jpeg` |
+| `madhubani-woman-peacock` | `... 10.23.18 AM6.jpeg` |
 | `gond` | `gond-tree-of-life.jpg` (origin not documented) |
 | `kalamkari` | `... 10.23.11 AM.jpeg` |
 | `pottery` | `... 10.23.11 AM1.jpeg` |
 | `painting-together` | `... 10.23.15 AM1111111111.jpeg` |
 
-Not shipped: `UI_1.jpeg`, `UI_2.jpeg` (design mockups, reference only), the asset contact sheet, and two illustrations with baked-in text and score (`... 10.23.17 AM4.jpeg`, `... 10.23.17 AM44.jpeg`), and the video thumbnail with baked-in title and a fake duration (`... 10.23.18 AM6.jpeg`).
+Not shipped: `UI_1.jpeg`, `UI_2.jpeg` (design mockups, reference only), the asset contact sheet, and two illustrations with baked-in text and score (`... 10.23.17 AM4.jpeg`, `... 10.23.17 AM44.jpeg`), and the video thumbnail with baked-in title and a fake duration (`... 10.23.18 AM555.jpeg`).
 
 **Licence of the illustrations:** not yet stated by the team. They are used with the team's permission for this prototype. Confirm the licence (and the terms of the generator) before redistributing them separately.
 

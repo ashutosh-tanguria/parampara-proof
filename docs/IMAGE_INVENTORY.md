@@ -14,8 +14,8 @@ Every file in `design-source/pictures/` was opened and viewed. Names are shorten
 | `15 AM3` | 1600x900 | Hand painting a Madhubani bird, paint bowls, block stamp | Home hero | 60% 55% |
 | `17 AM4` | 1600x900 | "Your Artwork / Suggested Improvements" illustration; baked-in text and a 72/100 score | Reference only (baked text and a quality score) | n/a |
 | `17 AM44` | 1600x900 | "Upload Your Artwork" illustration; baked-in text | Reference only | n/a |
-| `18 AM555` | 1600x900 | Madhubani woman and peacock, red border | Madhubani gallery, Community | 45% 50% |
-| `18 AM6` | 1600x900 | "Learn Warli Art" thumbnail; baked-in title, play button, fake duration "12:36" | Not used (the lesson poster is built in HTML from `15 AM1111111111`) | n/a |
+| `18 AM6` | 1600x900 | Madhubani woman and peacock, red border | Madhubani gallery, Community | 45% 50% |
+| `18 AM555` | 1600x900 | "Learn Warli Art" thumbnail; baked-in title, play button, fake duration "12:36" | Not used (the lesson poster is built in HTML from `15 AM1111111111`) | n/a |
 | `18 AM7` | 1600x900 | Wide Warli village scene with hut and dance circle | Warli gallery, splash/pattern background | 50% 50% |
 | `19 AM8` | 1600x900 | Wide Warli ring dance with drummer | Warli gallery, Learn thumbnails | 50% 50% |
 | `UI_1.jpeg`, `UI_2.jpeg` | 1536x1024 | UI mockups (desktop + mobile) | Visual reference only, never cropped or shipped | n/a |
