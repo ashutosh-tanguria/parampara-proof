@@ -6,6 +6,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 
+DEV_SECRET = "dev-only-secret-change-me"
+
+
 def _int(name: str, default: int) -> int:
     try:
         return int(os.environ.get(name, default))
@@ -38,6 +41,10 @@ class Settings:
     model_dir: Path = field(default_factory=lambda: ROOT / "backend")
     upload_dir: Path = field(default_factory=lambda: ROOT / "backend" / "uploads")
     dist_dir: Path = field(default_factory=lambda: ROOT / "frontend" / "dist")
+    data_dir: Path = field(default_factory=lambda: ROOT / "backend" / "data")
+    session_secret: str = DEV_SECRET
+    cookie_secure: bool = False
+    session_days: int = 7
     upload_ttl_hours: float = 24.0
     max_upload_mb: int = 10
     allowed_origins: list[str] = field(default_factory=lambda: ["http://localhost:5173", "http://localhost:8000"])
@@ -69,6 +76,13 @@ def load_settings() -> Settings:
         s.upload_dir = Path(env("UPLOAD_DIR"))
         if not s.upload_dir.is_absolute():
             s.upload_dir = ROOT / s.upload_dir
+    if env("DATA_DIR"):
+        s.data_dir = Path(env("DATA_DIR"))
+        if not s.data_dir.is_absolute():
+            s.data_dir = ROOT / s.data_dir
+    s.session_secret = env("SESSION_SECRET", s.session_secret)
+    s.cookie_secure = env("COOKIE_SECURE", "0") == "1"
+    s.session_days = _int("SESSION_DAYS", s.session_days)
     s.upload_ttl_hours = _float("UPLOAD_TTL_HOURS", s.upload_ttl_hours)
     s.max_upload_mb = _int("MAX_UPLOAD_MB", s.max_upload_mb)
     if env("ALLOWED_ORIGINS"):

@@ -18,3 +18,4 @@ data/
 .hf-cache/
 e2e_run.log
 *.log
+backend/data/

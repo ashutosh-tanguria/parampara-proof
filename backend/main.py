@@ -18,11 +18,13 @@ from fastapi.staticfiles import StaticFiles
 from PIL import Image
 from pydantic import BaseModel
 
+from . import auth, listings, messaging, videos
 from . import chat as chat_module
-from .config import Settings, load_settings
+from .config import DEV_SECRET, Settings, load_settings
+from .db import Database
 from .content import AUTOMATED, CATALOGUE, COMMON_MISTAKES, GALLERY, LESSONS, SAMPLE_POSTS, clean_quote, hero_image, load_credits
 from .errors import AppError, error_response, install_error_handlers
-from .model_service import Knowledge, ModelService
+from .model_service import Knowledge, ModelService, friendly_model_error
 from .stores import BoundedStore, RateLimiter
 from .uploads import cleanup_uploads, decode_image, downscale, save_upload
 
@@ -95,34 +97,62 @@ def create_app(settings: Settings | None = None, service: ModelService | None = 
             if removed or purged:
                 log.info("cleanup removed %d files and %d analyses", removed, purged)
 
+    def build_model() -> ModelService:
+        svc = ModelService(settings.model_dir, app.state.knowledge)
+        svc.load_clip(min(4, os.cpu_count() or 2))
+        return svc
+
+    async def load_model_task(app: FastAPI):
+        """Load CLIP and the classifier. Runs in the background so the API (and the content pages) are available
+        immediately, even during the first-run download of the CLIP weights."""
+        try:
+            app.state.model = await run_in_threadpool(build_model)
+            app.state.model_state = "ready"
+            app.state.model_error = None
+            log.info("model ready")
+        except Exception as e:
+            app.state.model_state = "failed"
+            app.state.model_error = friendly_model_error(e)
+            log.error("model could not be loaded: %s: %s", type(e).__name__, e, exc_info=True)
+            if settings.strict_model_check:
+                raise
+
     @contextlib.asynccontextmanager
     async def lifespan(app: FastAPI):
-        app.state.knowledge = Knowledge(settings.model_dir)
+        try:
+            app.state.knowledge = Knowledge(settings.model_dir)
+            credits.extend(load_credits(settings.model_dir / "image_credits.csv"))
+        except Exception as e:
+            log.error("content files could not be read from %s: %s", settings.model_dir, e)
+            raise RuntimeError(f"Content files are missing or unreadable in {settings.model_dir} ({e}). Is MODEL_DIR correct?") from e
         app.state.model = None
         app.state.model_error = None
-        credits.extend(load_credits(settings.model_dir / "image_credits.csv"))
+        app.state.model_state = "loading"
         app.state.semaphore = asyncio.Semaphore(settings.max_concurrent_inference)
+        loader = None
         if service is not None:
-            app.state.model = service
-        elif load_model:
-            try:
-                svc = ModelService(settings.model_dir, app.state.knowledge)
-                await run_in_threadpool(svc.load_clip, min(4, os.cpu_count() or 2))
-                app.state.model = svc
-            except Exception as e:  # the API still starts; /api/analyze answers 503
-                app.state.model_error = f"{type(e).__name__}: {e}"
-                log.error("model could not be loaded: %s", app.state.model_error)
-                if settings.strict_model_check:
-                    raise
+            app.state.model, app.state.model_state = service, "ready"
+        elif not load_model:
+            app.state.model_state, app.state.model_error = "failed", "Model loading is switched off."
+        elif settings.strict_model_check:
+            await load_model_task(app)  # refuse to start if the model cannot load
+        else:
+            loader = asyncio.create_task(load_model_task(app))
         task = asyncio.create_task(cleanup_loop(app))
         yield
         task.cancel()
+        if loader:
+            loader.cancel()
 
     app = FastAPI(title="Parampara Proof API", description="Style-similarity checker and learning content for Indian folk art.", version=settings.version, lifespan=lifespan)
     install_error_handlers(app)
     app.state.settings = settings
     app.state.analyses = analyses
     app.state.posts = posts
+    app.state.db = Database(settings.data_dir / "app.db")
+    app.state.auth_limiter = RateLimiter(10)
+    if settings.session_secret == DEV_SECRET:
+        log.warning("SESSION_SECRET is not set: using the built-in development secret. Fine for a local demo, NOT for a public site.")
 
     app.add_middleware(CORSMiddleware, allow_origins=settings.allowed_origins, allow_credentials=False, allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
 
@@ -133,8 +163,10 @@ def create_app(settings: Settings | None = None, service: ModelService | None = 
         start = time.perf_counter()
         try:
             length = request.headers.get("content-length")
-            if request.method == "POST" and length and length.isdigit() and int(length) > settings.max_upload_bytes + 1024 * 1024:
-                response = error_response(413, "request_too_large", f"The request is too large (limit about {settings.max_upload_mb} MB).")
+            path = request.url.path
+            limit = (videos.MAX_VIDEO_BYTES if path == "/api/videos/upload" else 4 * listings.MAX_IMAGE_BYTES if path.endswith("/images") else settings.max_upload_bytes) + 1024 * 1024
+            if request.method == "POST" and length and length.isdigit() and int(length) > limit:
+                response = error_response(413, "request_too_large", f"The request is too large (limit about {limit // (1024 * 1024)} MB).")
             else:
                 response = await call_next(request)
             h = response.headers
@@ -144,7 +176,7 @@ def create_app(settings: Settings | None = None, service: ModelService | None = 
             h["Permissions-Policy"] = "camera=(), geolocation=(), microphone=(self)"
             h["Content-Security-Policy"] = (
                 "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; "
-                f"font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors {settings.frame_ancestors}"
+                f"font-src 'self' data:; connect-src 'self'; frame-src https://www.youtube-nocookie.com; media-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors {settings.frame_ancestors}"
             )
             if request.url.path.startswith("/uploads/"):
                 h["Cache-Control"] = "private, max-age=3600"
@@ -167,14 +199,15 @@ def create_app(settings: Settings | None = None, service: ModelService | None = 
         svc: ModelService | None = app.state.model
         loaded = svc is not None and svc.ready
         return {
-            "status": "ok" if loaded else "degraded",
+            "status": "ok" if loaded else ("loading" if app.state.model_state == "loading" else "degraded"),
             "version": settings.version,
             "model_loaded": loaded,
+            "model_state": app.state.model_state,
             "clip_model": svc.clip_name if svc else None,
             "sklearn_version": svc.meta.get("sklearn_version") if svc else None,
             "classes": [str(c) for c in svc.clf.classes_] if svc else [],
             "model_version": svc.model_version if svc else None,
-            "error": None if loaded else (app.state.model_error or "Model is not loaded."),
+            "error": None if loaded else (app.state.model_error or "The model is still loading."),
         }
 
     @app.get("/api/art-forms")
@@ -234,7 +267,9 @@ def create_app(settings: Settings | None = None, service: ModelService | None = 
 
         svc: ModelService | None = app.state.model
         if svc is None or not svc.ready:
-            raise AppError(503, "model_unavailable", "Analysis is temporarily unavailable. Please try again later.")
+            if app.state.model_state == "loading":
+                raise AppError(503, "model_loading", "The model is still loading (the first start can download about 600 MB). Please try again in a minute.", {"Retry-After": "15"})
+            raise AppError(503, "model_unavailable", f"Analysis is temporarily unavailable. {app.state.model_error or ''}".strip())
         im = downscale(im)
         note = clean_text(user_note, 500) or None
         t0 = time.perf_counter()
@@ -301,6 +336,13 @@ def create_app(settings: Settings | None = None, service: ModelService | None = 
         # History is kept in the visitor's browser; the server never lists other people's analyses.
         return {"user": {"name": "Guest", "bio": "Guest profile. Your history and saved items are stored in this browser only."}, "storage": "browser"}
 
+    app.include_router(auth.router)
+    app.include_router(auth.people)
+    app.include_router(videos.router)
+    app.include_router(listings.router)
+    app.include_router(messaging.router)
+    (settings.data_dir / "uploads").mkdir(parents=True, exist_ok=True)
+    app.mount("/media", StaticFiles(directory=settings.data_dir / "uploads"), name="media")  # videos and listing images
     app.mount("/uploads", StaticFiles(directory=settings.upload_dir), name="uploads")
     _mount_spa(app, settings.dist_dir)
     return app
@@ -314,7 +356,7 @@ def _mount_spa(app: FastAPI, dist: Path) -> None:
 
     @app.get("/{full_path:path}", include_in_schema=False)
     async def spa(full_path: str):
-        if full_path.startswith(("api/", "uploads/")):
+        if full_path.startswith(("api/", "uploads/", "media/")):
             raise AppError(404, "not_found", "Not found.")
         candidate = (dist / full_path).resolve()
         try:

@@ -37,6 +37,19 @@ class ModelIntegrityError(RuntimeError):
     """The model files are missing, changed, or incompatible with this environment."""
 
 
+def friendly_model_error(e: Exception) -> str:
+    """A short, plain-English reason for the UI and /api/health. Full details go to the server log only."""
+    if isinstance(e, ModelIntegrityError):
+        return str(e)
+    text = f"{type(e).__name__} {e}".lower()
+    if any(k in text for k in ("offline", "connect", "resolve", "timeout", "timed out", "max retries", "network", "ssl", "localentrynotfound", "couldn't find", "cannot find the requested files")):
+        return ("The CLIP model (about 600 MB) is not on this computer and could not be downloaded. "
+                "Connect to the internet once and restart the server, or run: python scripts/download_model.py")
+    if "memory" in text:
+        return "Not enough memory to load the model. Close other programs (2 GB of free RAM is needed) and restart the server."
+    return "The model could not be loaded. See the server log for details."
+
+
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
     with open(path, "rb") as f:
