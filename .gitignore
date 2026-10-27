@@ -16,3 +16,5 @@ frontend/test-results/
 model_out/
 data/
 .hf-cache/
+e2e_run.log
+*.log

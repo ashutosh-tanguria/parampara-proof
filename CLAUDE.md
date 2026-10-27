@@ -17,8 +17,12 @@ Team: Ashutosh Tanguria, Prithika Banerjee, Shreesh Tripathi (IIT Kharagpur).
 - Backend dev: `uvicorn backend.main:app --reload --port 8000` (run from the repo root)
 - Frontend dev: `cd frontend && npm install && npm run dev` (Vite on 5173, proxies /api to 8000)
 - Backend tests: `pytest -q`
-- Frontend checks: `cd frontend && npm run typecheck && npm run lint && npm test && npm run build`
-- E2E: `cd frontend && npx playwright test`
+- Frontend checks: `cd frontend && npm run check` (typecheck, lint, vitest, build)
+- E2E: `cd frontend && npm run build && npx playwright test` (set `PYTHON` to the venv's python; the backend serves `frontend/dist` on port 8000)
+- Python lint: `ruff check backend scripts ml tests`
+- Images: `python scripts/build_images.py` regenerates `frontend/public/assets/`, `frontend/src/assets/imageManifest.ts` and `sample_data/`
+- Model: `python scripts/verify_model.py` (checksums), `python scripts/calibrate_guard.py` (guard and sample outputs)
+- Upload limits and messages must match in `backend/uploads.py` and `frontend/src/lib/validate.ts` (a test checks this).
 
 ## Hard rules (never break these)
 1. **Honesty over polish.** The model gives a style-similarity estimate. It must never be presented as a quality score, an authenticity certificate or an "expert" judgement. `overall_score` stays `null`. No fake numbers, fake testimonials, fake artist names or "expert-verified" claims anywhere in the UI, README or docs.
