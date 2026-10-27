@@ -7,6 +7,7 @@ import { Splash } from './components/layout/Splash'
 import { ToastProvider } from './components/ui/Toast'
 import { Skeleton } from './components/ui/basic'
 import { ArtFormsProvider } from './lib/artForms'
+import { AuthProvider } from './lib/auth'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const ArtFormsPage = lazy(() => import('./pages/ArtFormsPage'))
@@ -19,6 +20,16 @@ const CommunityPage = lazy(() => import('./pages/CommunityPage'))
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage'))
 const CreditsPage = lazy(() => import('./pages/CreditsPage'))
 const AboutPage = lazy(() => import('./pages/AboutPage'))
+const AuthPage = lazy(() => import('./pages/AuthPage'))
+const AccountPage = lazy(() => import('./pages/AccountPage'))
+const TeachersPage = lazy(() => import('./pages/TeachersPage'))
+const VideoDetailPage = lazy(() => import('./pages/VideoDetailPage'))
+const VideoFormPage = lazy(() => import('./pages/VideoFormPage'))
+const CraftspersonPage = lazy(() => import('./pages/CraftspersonPage'))
+const MarketplacePage = lazy(() => import('./pages/MarketplacePage'))
+const ListingDetailPage = lazy(() => import('./pages/ListingDetailPage'))
+const ListingFormPage = lazy(() => import('./pages/ListingFormPage'))
+const MessagesPage = lazy(() => import('./pages/MessagesPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 function ScrollToTop() {
@@ -41,6 +52,7 @@ function PageFallback() {
 export function App() {
   return (
     <ToastProvider>
+      <AuthProvider>
       <ArtFormsProvider>
         <a href="#main" className="skip-link">
           Skip to main content
@@ -63,6 +75,20 @@ export function App() {
                 <Route path="/portfolio" element={<PortfolioPage />} />
                 <Route path="/credits" element={<CreditsPage />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/login" element={<AuthPage />} />
+                <Route path="/signup" element={<AuthPage initial="signup" />} />
+                <Route path="/account" element={<AccountPage />} />
+                <Route path="/teachers" element={<TeachersPage />} />
+                <Route path="/teachers/new" element={<VideoFormPage />} />
+                <Route path="/teachers/:id" element={<VideoDetailPage />} />
+                <Route path="/teachers/:id/edit" element={<VideoFormPage />} />
+                <Route path="/craftspeople/:id" element={<CraftspersonPage />} />
+                <Route path="/marketplace" element={<MarketplacePage />} />
+                <Route path="/marketplace/new" element={<ListingFormPage />} />
+                <Route path="/marketplace/:id" element={<ListingDetailPage />} />
+                <Route path="/marketplace/:id/edit" element={<ListingFormPage />} />
+                <Route path="/messages" element={<MessagesPage />} />
+                <Route path="/messages/:id" element={<MessagesPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Suspense>
@@ -71,6 +97,7 @@ export function App() {
         </div>
         <MobileBottomNav />
       </ArtFormsProvider>
+      </AuthProvider>
     </ToastProvider>
   )
 }

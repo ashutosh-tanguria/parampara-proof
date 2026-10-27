@@ -20,7 +20,9 @@ function toApiError(status: number, text: string): ApiError {
   } catch {
     /* not JSON */
   }
-  return new ApiError(status, 'http_error', status >= 500 ? 'The server had a problem. Please try again.' : 'Request failed.')
+  // A non-JSON error page means the request never reached our API (for example the dev proxy could not reach the backend).
+  if (status >= 500) return new ApiError(status, 'backend_unreachable', 'The server is not running or did not respond. Start the backend (see the README) and try again.')
+  return new ApiError(status, 'http_error', `The request was not accepted (error ${status}).`)
 }
 
 export async function apiFetch<T>(path: string, init: RequestInit = {}, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<T> {
@@ -38,7 +40,7 @@ export async function apiFetch<T>(path: string, init: RequestInit = {}, timeoutM
     if (e instanceof ApiError) throw e
     if (outer?.aborted) throw e
     if (ctrl.signal.aborted) throw new ApiError(0, 'timeout', 'The server took too long to respond. Please try again.')
-    throw new ApiError(0, 'network', 'Could not reach the server. Check your connection and try again.')
+    throw new ApiError(0, 'network', 'The server is not running or could not be reached. Start the backend (see the README), then try again.')
   } finally {
     clearTimeout(timer)
     outer?.removeEventListener('abort', onAbort)
@@ -79,7 +81,7 @@ export function analyzeImage(file: File, artForm: string, note: string, opts: An
         reject(toApiError(xhr.status, xhr.responseText))
       }
     }
-    xhr.onerror = () => reject(new ApiError(0, 'network', 'Could not reach the server. Check your connection and try again.'))
+    xhr.onerror = () => reject(new ApiError(0, 'network', 'The server is not running or could not be reached. Start the backend (see the README), then try again.'))
     xhr.ontimeout = () => reject(new ApiError(0, 'timeout', 'The analysis took too long. Please try again.'))
     xhr.onabort = () => reject(new DOMException('aborted', 'AbortError'))
     opts.signal?.addEventListener('abort', () => xhr.abort())

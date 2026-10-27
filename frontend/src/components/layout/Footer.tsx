@@ -14,6 +14,9 @@ export function Footer() {
           <Link className="py-2 hover:underline" to="/analyse">Analyse</Link>
           <Link className="py-2 hover:underline" to="/learn">Learn</Link>
           <Link className="py-2 hover:underline" to="/community">Community</Link>
+          <Link className="py-2 hover:underline" to="/teachers">Learn from craftspeople</Link>
+          <Link className="py-2 hover:underline" to="/marketplace">Marketplace</Link>
+          <Link className="py-2 hover:underline" to="/messages">Messages</Link>
           <Link className="py-2 hover:underline" to="/about">About and how it works</Link>
           <Link className="py-2 hover:underline" to="/credits">Credits</Link>
         </nav>

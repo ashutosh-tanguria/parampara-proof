@@ -158,7 +158,7 @@ export const imageManifest = {
     "height": 900,
     "alt": "A Madhubani-style painting of a woman holding a lotus beside a peacock, inside a red patterned border.",
     "focal": "45% 50%",
-    "color": "#8d5838",
+    "color": "#895f45",
     "credit": "AI-generated illustration (team-supplied)",
     "aiGenerated": true
   },

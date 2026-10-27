@@ -36,7 +36,7 @@ IMAGES = {
     "warli-brushes": ("gallery", wa("14 AM11"), "A Warli-style painting with a row of dancers, a hut, a horse and a palm tree, with two brushes resting on it.", "45% 50%"),
     "warli-village": ("gallery", wa("18 AM7"), "A wide Warli-style village scene with a dance circle, a tree, a hut and a cow.", "50% 50%"),
     "warli-dance": ("gallery", wa("19 AM8"), "A wide Warli-style scene of dancers in a ring around a drummer.", "50% 50%"),
-    "madhubani-woman-peacock": ("gallery", wa("18 AM555"), "A Madhubani-style painting of a woman holding a lotus beside a peacock, inside a red patterned border.", "45% 50%"),
+    "madhubani-woman-peacock": ("gallery", wa("18 AM6"), "A Madhubani-style painting of a woman holding a lotus beside a peacock, inside a red patterned border.", "45% 50%"),
     "painting-together": ("community", wa("15 AM1111111111"), "Two women painting a Warli-style artwork together at a table.", "58% 42%"),
 }
 
