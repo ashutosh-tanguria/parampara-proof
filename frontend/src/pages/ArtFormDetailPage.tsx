@@ -1,272 +1,200 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Sparkles, BookOpen, AlertCircle, CheckCircle2, Upload, ChevronRight, Palette } from 'lucide-react';
-import { ArtFormDetail } from '../types';
+import { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { Bookmark, BookmarkCheck, Check } from 'lucide-react'
+import { ResponsiveImage } from '../components/ResponsiveImage'
+import { StyleBadge } from '../components/ArtFormCard'
+import { Badge, Button, Card, EmptyState, ErrorState, LinkButton, Skeleton } from '../components/ui/basic'
+import { Tabs } from '../components/ui/Tabs'
+import { useToast } from '../components/ui/Toast'
+import { useApi, usePageTitle, useStoredList } from '../lib/hooks'
+import { KEYS } from '../lib/storage'
+import type { ArtFormDetail } from '../types'
 
-interface ArtFormDetailPageProps {
-  slug: string;
-  navigate: (route: string) => void;
+function Missing({ what }: { what: string }) {
+  return <p className="text-muted">No {what} have been added for this art form yet.</p>
 }
 
-export const ArtFormDetailPage: React.FC<ArtFormDetailPageProps> = ({ slug, navigate }) => {
-  const [detail, setDetail] = useState<ArtFormDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'techniques' | 'mistakes' | 'gallery'>('overview');
-
-  useEffect(() => {
-    setLoading(true);
-    fetch(`/api/art-forms/${slug}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to load art form details');
-        return res.json();
-      })
-      .then((data) => {
-        setDetail(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [slug]);
+export default function ArtFormDetailPage() {
+  const { slug = '' } = useParams()
+  const { data, error, loading, reload } = useApi<ArtFormDetail>(`/api/art-forms/${encodeURIComponent(slug)}`)
+  const [tab, setTab] = useState('overview')
+  const [saved, save, unsave, persisted] = useStoredList<string>(KEYS.saved)
+  const toast = useToast()
+  usePageTitle(data?.name ?? 'Art form')
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <div className="w-10 h-10 border-4 border-forest border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-sm text-[#78716C]">Loading traditional knowledge...</p>
+      <div className="container-page py-8">
+        <Skeleton className="mb-4 h-10 w-1/2" />
+        <Skeleton className="h-80" />
       </div>
-    );
+    )
+  }
+  if (error?.status === 404) {
+    return (
+      <div className="container-page py-12">
+        <EmptyState title="We could not find that art form" text="It may have been renamed or removed." action={<LinkButton to="/art-forms">See all art forms</LinkButton>} />
+      </div>
+    )
+  }
+  if (error || !data) return <div className="container-page py-12"><ErrorState message={error?.message ?? 'Could not load this art form.'} onRetry={reload} /></div>
+
+  const isSaved = saved.includes(data.slug)
+  const toggleSave = () => {
+    if (isSaved) unsave((s) => s === data.slug)
+    else save(data.slug)
+    if (!persisted) toast('Your browser did not allow saving. This will be lost when you close the tab.')
   }
 
-  if (!detail) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <h2 className="font-editorial text-2xl font-bold text-forest">Art Form Not Found</h2>
-        <p className="text-sm text-[#78716C] mt-2">Could not find knowledge records for this tradition.</p>
-        <button
-          onClick={() => navigate('/art-forms')}
-          className="mt-4 px-5 py-2 rounded-full bg-forest text-white text-xs font-semibold"
-        >
-          Back to Art Forms
-        </button>
+  const chars = data.key_characteristics ?? []
+  const analyseLink = `/analyse?art_form=${data.slug}`
+
+  const overview = (
+    <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
+      <div>
+        <ResponsiveImage slug={data.image_slug} ratio="4 / 3" sizes="(min-width: 1024px) 640px, 92vw" className="rounded-card shadow-warm" fallbackLabel="Reference image coming soon" />
+        {data.overview && <p className="mt-4 text-lg">{data.overview}</p>}
       </div>
-    );
-  }
+      <div>
+        <Card className="p-5">
+          <h3 className="mb-3 text-xl font-semibold">Key characteristics</h3>
+          {chars.length === 0 ? (
+            <Missing what="characteristics" />
+          ) : (
+            <ul className="space-y-4">
+              {chars.map((c) => (
+                <li key={c.id} className="flex gap-3">
+                  <Check className="mt-1 h-5 w-5 shrink-0 text-forest" aria-hidden="true" />
+                  <div>
+                    <p className="font-semibold">{c.title}</p>
+                    <p className="text-sm text-muted">{c.description}</p>
+                    <p className="mt-1 text-sm">
+                      <span className="font-semibold text-terracotta-text">Tip: </span>
+                      {c.tip}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card>
+      </div>
+    </div>
+  )
+
+  const tabs = [
+    {
+      id: 'overview',
+      label: 'Overview',
+      content: (
+        <>
+          {overview}
+          {data.quote && (
+            <blockquote className="mt-8 rounded-card bg-ochre-50 p-5 font-serif text-lg italic">
+              {data.quote}
+              <footer className="mt-2 text-sm not-italic text-muted">Quote from the team&rsquo;s curated notes, not a verified citation.</footer>
+            </blockquote>
+          )}
+        </>
+      ),
+    },
+    {
+      id: 'history',
+      label: 'History',
+      content: data.origin ? (
+        <div className="max-w-3xl">
+          <h3 className="text-xl font-semibold">Origin</h3>
+          <p className="mt-2 text-lg">{data.origin}</p>
+          <p className="mt-4 text-sm text-muted">Notes are curated by the team and have not yet been reviewed by practising artists.</p>
+        </div>
+      ) : (
+        <Missing what="history notes" />
+      ),
+    },
+    {
+      id: 'techniques',
+      label: 'Techniques',
+      content: data.materials_and_techniques?.length ? (
+        <ul className="max-w-3xl list-disc space-y-2 pl-5 text-lg">
+          {data.materials_and_techniques.map((m) => (
+            <li key={m}>{m}</li>
+          ))}
+        </ul>
+      ) : (
+        <Missing what="technique notes" />
+      ),
+    },
+    {
+      id: 'mistakes',
+      label: 'Common Mistakes',
+      content: data.common_mistakes?.length ? (
+        <ul className="max-w-3xl list-disc space-y-2 pl-5 text-lg">
+          {data.common_mistakes.map((m) => (
+            <li key={m}>{m}</li>
+          ))}
+        </ul>
+      ) : (
+        <Missing what="common mistakes" />
+      ),
+    },
+    {
+      id: 'gallery',
+      label: 'Gallery',
+      content: data.gallery?.length ? (
+        <>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {data.gallery.map((g) => (
+              <li key={g.image_slug}>
+                <Card className="overflow-hidden">
+                  <ResponsiveImage slug={g.image_slug} ratio="16 / 10" sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 92vw" />
+                  <p className="p-3 text-sm font-medium">{g.title}</p>
+                </Card>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-muted">
+            These are AI-generated illustrations, not photographs of real artworks. See <Link className="underline" to="/credits">Credits</Link>.
+          </p>
+        </>
+      ) : (
+        <EmptyState title="Gallery coming soon" text="No reference images are available for this art form yet." />
+      ),
+    },
+    {
+      id: 'learn',
+      label: 'Learn',
+      content: (
+        <div className="max-w-3xl space-y-4">
+          <h3 className="text-xl font-semibold">Next practice exercise</h3>
+          <p className="text-lg">{data.next_exercise || 'Practise basic outlines and border patterns of this style.'}</p>
+          <LinkButton to="/learn" variant="outline">See all practice material</LinkButton>
+        </div>
+      ),
+    },
+  ]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8">
-      
-      {/* Top Breadcrumb & Back */}
-      <div className="flex items-center gap-2 text-xs text-[#78716C]">
-        <button
-          onClick={() => navigate('/art-forms')}
-          className="flex items-center gap-1 hover:text-forest transition-colors font-medium"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Art Forms</span>
-        </button>
-        <span>/</span>
-        <span className="text-forest font-semibold">{detail.name}</span>
+    <div className="container-page py-8">
+      <nav aria-label="Breadcrumb" className="mb-3 text-sm text-muted">
+        <Link to="/art-forms" className="hover:underline">Art Forms</Link> <span aria-hidden="true">/</span> <span aria-current="page">{data.name}</span>
+      </nav>
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-semibold sm:text-4xl">{data.name}</h1>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <StyleBadge automated={data.automated_supported} />
+            {!data.automated_supported && <Badge tone="neutral">Guidance only, no automated analysis</Badge>}
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" onClick={toggleSave} aria-pressed={isSaved}>
+            {isSaved ? <BookmarkCheck className="h-4 w-4" aria-hidden="true" /> : <Bookmark className="h-4 w-4" aria-hidden="true" />}
+            {isSaved ? 'Saved' : 'Save'}
+          </Button>
+          <LinkButton to={analyseLink}>Analyse my artwork</LinkButton>
+        </div>
       </div>
-
-      {/* Hero Header */}
-      <div className="space-y-3">
-        <div className="flex flex-wrap items-center gap-2.5">
-          <h1 className="font-editorial text-3xl sm:text-5xl font-bold text-[#153828]">
-            {detail.name}
-          </h1>
-          {detail.automated_supported ? (
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-emerald-700" />
-              <span>AI Classifier Active</span>
-            </span>
-          ) : (
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
-              Knowledge Track
-            </span>
-          )}
-        </div>
-        <p className="text-sm sm:text-base text-[#57534E] max-w-3xl leading-relaxed">
-          {detail.overview}
-        </p>
-      </div>
-
-      {/* Tabs Bar */}
-      <div className="flex items-center gap-2 border-b border-[#EADFCF] overflow-x-auto pb-1 scrollbar-none">
-        {(['overview', 'techniques', 'mistakes', 'gallery'] as const).map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 text-xs sm:text-sm font-semibold capitalize border-b-2 transition-all ${
-              activeTab === tab
-                ? 'border-terracotta text-terracotta'
-                : 'border-transparent text-[#78716C] hover:text-forest'
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
-
-      {/* Tab 1: Overview */}
-      {activeTab === 'overview' && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Main Visual */}
-          <div className="lg:col-span-6 space-y-4">
-            <div className="rounded-2xl overflow-hidden border border-[#EADFCF] shadow-warm bg-white">
-              <img
-                src={detail.hero_image}
-                alt={detail.name}
-                className="w-full h-80 sm:h-96 object-cover"
-              />
-            </div>
-
-            {/* Quote Block */}
-            {detail.quote && (
-              <div className="p-5 rounded-2xl bg-[#F5EFE6] border border-[#EADFCF] text-xs sm:text-sm text-[#57534E] italic font-serif leading-relaxed">
-                "{detail.quote}"
-              </div>
-            )}
-          </div>
-
-          {/* Key Characteristics Cards */}
-          <div className="lg:col-span-6 space-y-6">
-            <h3 className="font-editorial text-2xl font-bold text-forest">
-              Key Characteristics
-            </h3>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {detail.key_characteristics.map((feat) => (
-                <div
-                  key={feat.id}
-                  className="p-4 rounded-xl bg-white border border-[#EADFCF] shadow-sm space-y-2 hover:border-terracotta transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-[#FAF7F2] border border-ochre/40 flex items-center justify-center text-terracotta">
-                      <Sparkles className="w-3.5 h-3.5" />
-                    </div>
-                    <h4 className="font-editorial text-base font-bold text-forest">
-                      {feat.title}
-                    </h4>
-                  </div>
-                  <p className="text-xs text-[#78716C] leading-relaxed">
-                    {feat.description}
-                  </p>
-                  <div className="text-[11px] text-terracotta font-medium pt-1 border-t border-[#F5EFE6]">
-                    <strong>Tip:</strong> {feat.tip}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA Box */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-forest to-forest-light text-white shadow-warm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <h4 className="font-editorial text-lg font-bold">
-                  Practice {detail.name}
-                </h4>
-                <p className="text-xs text-[#D5C4AC] mt-1 max-w-sm">
-                  Upload your attempt and our machine learning pipeline will check adherence to these authentic rules.
-                </p>
-              </div>
-
-              <button
-                onClick={() => navigate(`/analyse?art_form=${slug}`)}
-                className="px-5 py-2.5 rounded-full bg-terracotta hover:bg-terracotta-hover text-white text-xs sm:text-sm font-semibold flex items-center gap-1.5 shadow-sm active:scale-95 whitespace-nowrap"
-              >
-                <Upload className="w-4 h-4" />
-                <span>Analyse Artwork</span>
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-      )}
-
-      {/* Tab 2: Techniques */}
-      {activeTab === 'techniques' && (
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#EADFCF] shadow-sm space-y-6">
-          <h3 className="font-editorial text-2xl font-bold text-forest">
-            Traditional Materials & Techniques
-          </h3>
-          <p className="text-sm text-[#78716C]">
-            Centuries of craft wisdom passed down through ancestral lineages in {detail.origin}.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-            {detail.materials_and_techniques.map((mat, idx) => (
-              <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-[#FAF7F2] border border-[#EADFCF]">
-                <div className="w-6 h-6 rounded-full bg-forest text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
-                  {idx + 1}
-                </div>
-                <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
-                  {mat}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="p-5 rounded-xl bg-[#F5EFE6] border border-[#EADFCF] mt-4">
-            <h4 className="font-editorial text-base font-bold text-forest mb-1">
-              Next Practice Exercise
-            </h4>
-            <p className="text-xs sm:text-sm text-[#78716C] leading-relaxed">
-              {detail.next_exercise}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Tab 3: Mistakes */}
-      {activeTab === 'mistakes' && (
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#EADFCF] shadow-sm space-y-6">
-          <h3 className="font-editorial text-2xl font-bold text-forest">
-            Common Learner Mistakes & Fixes
-          </h3>
-          <p className="text-sm text-[#78716C]">
-            Avoid modern western conventions that disrupt traditional aesthetics.
-          </p>
-
-          <div className="space-y-4 pt-2">
-            {detail.common_mistakes.map((mistake, idx) => (
-              <div key={idx} className="p-4 rounded-xl bg-red-50/50 border border-red-200 flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-xs sm:text-sm font-bold text-forest">
-                    {mistake}
-                  </h4>
-                  <p className="text-xs text-[#78716C] mt-1">
-                    Study the authentic characteristics to keep line weight, flat color, and geometry grounded in tradition.
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Tab 4: Gallery */}
-      {activeTab === 'gallery' && (
-        <div className="space-y-6">
-          <h3 className="font-editorial text-2xl font-bold text-forest">
-            Reference Artwork Gallery
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {detail.reference_gallery.map((item, idx) => (
-              <div key={idx} className="bg-white rounded-2xl overflow-hidden border border-[#EADFCF] shadow-warm">
-                <img src={item.image} alt={item.title} className="w-full h-56 object-cover" />
-                <div className="p-4">
-                  <h4 className="font-editorial text-base font-bold text-forest">{item.title}</h4>
-                  <p className="text-xs text-[#78716C] mt-0.5">{detail.name} Specimen</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
+      <Tabs items={tabs} value={tab} onChange={setTab} label={`${data.name} sections`} />
     </div>
-  );
-};
+  )
+}

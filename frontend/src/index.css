@@ -2,63 +2,120 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-parchment: #faf7f2;
+  --color-surface: #f5efe6;
+  --color-forest: #153828;
+  --color-terracotta: #c44d34;
+  --color-terracotta-text: #a8402b;
+  --color-ochre: #d4a373;
+  --color-ink: #292524;
+  --color-muted: #6b5e55;
+  --radius-card: 16px;
+  --radius-control: 12px;
+}
+
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
   body {
-    background-color: #FAF7F2;
-    color: #292524;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--color-parchment);
+    color: var(--color-ink);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    overflow-x: hidden;
   }
-  
-  h1, h2, h3, h4, .font-editorial {
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-editorial {
     font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 2px;
+  }
+  img {
+    max-width: 100%;
+  }
+  button,
+  a,
+  [role='tab'] {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
-/* Radar scanner HUD animation for Analysis Progress screen */
-@keyframes radar-sweep {
+@layer components {
+  .skip-link {
+    @apply absolute left-4 top-2 z-[100] -translate-y-24 rounded-control bg-forest px-4 py-3 text-white focus:translate-y-0;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@keyframes shimmer {
   0% {
-    transform: rotate(0deg);
+    background-position: -200% 0;
   }
   100% {
-    transform: rotate(360deg);
+    background-position: 200% 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, #eadfcf 25%, #f5efe6 50%, #eadfcf 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.85);
-    opacity: 0.8;
+/* Print stylesheet for "Download report" (window.print) */
+@media print {
+  .no-print,
+  header,
+  nav,
+  footer {
+    display: none !important;
   }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.3;
+  body {
+    background: #fff;
   }
-  100% {
-    transform: scale(0.85);
-    opacity: 0.8;
+  main {
+    padding: 0 !important;
   }
-}
-
-.animate-radar {
-  animation: radar-sweep 3s linear infinite;
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 2.5s ease-in-out infinite;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #FAF7F2;
-}
-::-webkit-scrollbar-thumb {
-  background: #D5C4AC;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #B8422A;
+  .print-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+  a[href]::after {
+    content: none !important;
+  }
 }
