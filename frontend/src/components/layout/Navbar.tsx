@@ -32,7 +32,7 @@ export function Navbar() {
               end={l.end}
               className={({ isActive }) =>
                 cn(
-                  'flex min-h-[44px] items-center rounded-control px-3 text-sm font-medium transition-colors',
+                  'flex min-h-[44px] items-center rounded-control px-2 text-sm font-medium transition-colors lg:px-3',
                   isActive ? 'bg-forest/10 font-semibold text-forest' : 'text-ink/80 hover:bg-parchment-300/60',
                 )
               }
@@ -46,10 +46,10 @@ export function Navbar() {
             <Search className="h-5 w-5" aria-hidden="true" />
           </Link>
           <Link to="/chat" className="hidden min-h-[44px] items-center gap-2 rounded-control px-3 text-sm font-medium hover:bg-parchment-300/60 md:flex">
-            <MessageCircle className="h-4 w-4" aria-hidden="true" /> AI Coach
+            <MessageCircle className="h-4 w-4" aria-hidden="true" /> <span className="hidden lg:inline">AI Coach</span><span className="sr-only lg:hidden">AI Coach</span>
           </Link>
           <Link to="/portfolio" className="hidden min-h-[44px] items-center gap-2 rounded-control bg-forest px-4 text-sm font-semibold text-white hover:bg-forest-900 md:flex">
-            <User className="h-4 w-4" aria-hidden="true" /> Guest
+            <User className="h-4 w-4" aria-hidden="true" /> <span className="hidden lg:inline">Guest</span><span className="sr-only lg:hidden">Guest profile</span>
           </Link>
         </div>
       </div>

@@ -159,7 +159,10 @@ export default function AnalysePage() {
             {warning && <p role="status" className="mt-2 text-sm text-[#7A4B00]">{warning}</p>}
           </div>
           <div className="lg:col-span-2">
-            <p className="mb-2 text-sm font-semibold">Try with a sample</p>
+            <p className="mb-1 text-sm font-semibold">Try with a sample</p>
+            <p className="mb-2 text-xs text-muted">
+              Samples are AI-generated illustrations. The model learned from photographs, so it can misjudge them (for example Gond and Madhubani).
+            </p>
             <ul className="flex flex-wrap gap-3">
               {Object.entries(SAMPLE_THUMBS).map(([art, thumb]) => (
                 <li key={art}>

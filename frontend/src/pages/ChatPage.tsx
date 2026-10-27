@@ -93,7 +93,7 @@ export default function ChatPage() {
 
   return (
     <div className="container-page grid gap-6 py-6 md:grid-cols-[240px_1fr]">
-      <aside aria-label="Recent chats" className="md:sticky md:top-20 md:self-start">
+      <aside aria-label="Recent chats" className="min-w-0 md:sticky md:top-20 md:self-start">
         <Button
           variant="dark"
           className="w-full"
@@ -117,7 +117,7 @@ export default function ChatPage() {
         </ul>
       </aside>
 
-      <section aria-label="Conversation" className="flex min-h-[60vh] flex-col rounded-card border border-parchment-300 bg-parchment-50 shadow-warm">
+      <section aria-label="Conversation" className="flex min-h-[60vh] min-w-0 flex-col rounded-card border border-parchment-300 bg-parchment-50 shadow-warm">
         <div className="border-b border-parchment-300 p-4">
           <h1 className="text-xl font-semibold">Chat with the Parampara coach</h1>
           <p className="text-sm text-muted">Answers come from the team&rsquo;s curated notes about each art form, not from a general AI model. They may be incomplete.</p>
@@ -161,7 +161,7 @@ export default function ChatPage() {
           {voiceMsg && <p role="status" className="mb-2 text-sm text-[#7A4B00]">{voiceMsg}</p>}
           <div className="flex items-center gap-2">
             <label htmlFor="chat-input" className="sr-only">Type your message</label>
-            <input id="chat-input" value={text} onChange={(e) => setText(e.target.value.slice(0, MAX_LEN))} dir="auto" placeholder="Type your message" className="min-h-[48px] flex-1 rounded-full border border-parchment-400 bg-parchment-100 px-4" />
+            <input id="chat-input" value={text} onChange={(e) => setText(e.target.value.slice(0, MAX_LEN))} dir="auto" placeholder="Type your message" className="min-h-[48px] min-w-0 flex-1 rounded-full border border-parchment-400 bg-parchment-100 px-4" />
             <button type="button" onClick={startVoice} aria-label={listening ? 'Listening' : 'Voice input'} aria-pressed={listening} className="flex h-12 w-12 items-center justify-center rounded-full border border-parchment-400 hover:bg-parchment-300/60">
               <Mic className="h-5 w-5" aria-hidden="true" />
             </button>

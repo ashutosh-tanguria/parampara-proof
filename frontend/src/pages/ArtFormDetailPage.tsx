@@ -92,7 +92,7 @@ export default function ArtFormDetailPage() {
           {data.quote && (
             <blockquote className="mt-8 rounded-card bg-ochre-50 p-5 font-serif text-lg italic">
               {data.quote}
-              <footer className="mt-2 text-sm not-italic text-muted">Quote from the team&rsquo;s curated notes, not a verified citation.</footer>
+              <footer className="mt-2 text-sm not-italic text-muted">An illustrative line from the team&rsquo;s notes. It is not a quotation from a named artist.</footer>
             </blockquote>
           )}
         </>
