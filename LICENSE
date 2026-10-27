@@ -1,0 +1,7 @@
+MIT License
+
+Copyright (c) 2026 Parampara Proof team
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated source code files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following: the above copyright notice and this permission notice shall be included in all copies. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+SCOPE: this license covers the SOURCE CODE ONLY. Images in frontend/public/assets and the training images listed in backend/image_credits.csv are NOT covered; they keep their own licenses/credits.

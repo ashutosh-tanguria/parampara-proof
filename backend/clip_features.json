@@ -1,0 +1,146 @@
+{
+  "madhubani": {
+    "name": "Madhubani / Mithila painting",
+    "origin": "Mithila region, Bihar (India) and Nepal. Traditionally painted by women on walls and floors, now on paper and cloth.",
+    "features": [
+      {
+        "id": "double_border",
+        "prompt": "a folk painting with a double line border and a floral border pattern",
+        "description": "Paintings are framed with a double-line border, often decorated with flowers or geometric patterns.",
+        "tip": "Draw two parallel lines around the painting and fill the band between them with a repeating pattern."
+      },
+      {
+        "id": "fill_patterns",
+        "prompt": "shapes filled with dots, hatching and cross-hatched line patterns",
+        "description": "Figures and shapes are filled with fine hatching, cross-hatching, dots and small repeating motifs instead of shading.",
+        "tip": "Replace any shading with line hatching, dots or tiny repeated patterns inside the shapes."
+      },
+      {
+        "id": "no_empty_space",
+        "prompt": "a densely filled painting with no empty background space, full of motifs",
+        "description": "The composition is packed. Gaps between main figures are filled with flowers, leaves, birds or patterns.",
+        "tip": "Look for blank areas and fill them with leaves, flowers, dots or small motifs."
+      },
+      {
+        "id": "motifs",
+        "prompt": "folk painting of fish, peacock, lotus flowers, sun and moon",
+        "description": "Common motifs: fish, peacocks, lotus, sun, moon, trees and gods, each with symbolic meaning (fertility, prosperity, love).",
+        "tip": "Include at least one traditional motif such as a fish, peacock or lotus."
+      },
+      {
+        "id": "faces_eyes",
+        "prompt": "faces drawn in profile with large almond shaped eyes and a pointed nose",
+        "description": "Faces are in profile, with big almond-shaped eyes, a pointed nose and a stylized body.",
+        "tip": "Draw faces side-on with large, elongated eyes, and avoid realistic proportions."
+      },
+      {
+        "id": "flat_bold_color",
+        "prompt": "flat bright colors red yellow green blue with bold black outlines, no shading",
+        "description": "Flat, bright natural colors with strong black outlines and no realistic shading or perspective.",
+        "tip": "Use flat color blocks outlined in black. No gradients, no 3D shading."
+      }
+    ]
+  },
+  "warli": {
+    "name": "Warli painting",
+    "origin": "Warli tribe, Maharashtra (Thane/Palghar region). Traditionally on mud-wall huts using rice paste.",
+    "features": [
+      {
+        "id": "white_on_earth",
+        "prompt": "white line drawing on a reddish brown earthy mud background",
+        "description": "Classic Warli uses only white (rice paste) on a red-ochre or mud-brown background.",
+        "tip": "Use a dark red-brown or earthy base and paint only in white. Avoid adding many colors."
+      },
+      {
+        "id": "geometric_figures",
+        "prompt": "tiny stick figures made of two triangles and a circle head",
+        "description": "People are made from basic shapes: a circle for the head and two triangles joined at the tips for the body.",
+        "tip": "Build humans from a circle and two triangles meeting at their points. Keep limbs as thin lines."
+      },
+      {
+        "id": "circle_dance",
+        "prompt": "many people dancing in a circle or spiral chain holding hands",
+        "description": "The famous tarpa dance shows a spiral or circular chain of dancers around a central figure or instrument.",
+        "tip": "Arrange figures in a circle or spiral, holding hands or touching."
+      },
+      {
+        "id": "village_scenes",
+        "prompt": "a flat village life scene with huts, trees, farming, no shading and no perspective",
+        "description": "Scenes show everyday life: farming, hunting, festivals, huts and trees, drawn flat without perspective.",
+        "tip": "Depict daily-life activities and keep everything flat. Avoid shadows and depth."
+      },
+      {
+        "id": "geometric_frame",
+        "prompt": "a rectangular frame with repeating geometric patterns and squares",
+        "description": "Squares and rectangular frames with repeated geometric motifs are central to Warli ritual paintings.",
+        "tip": "Frame the artwork with a square or rectangle and use repeating triangles and squares."
+      }
+    ]
+  },
+  "gond": {
+    "name": "Gond painting",
+    "origin": "Gond community, Madhya Pradesh (Patangarh, Dindori).",
+    "features": [
+      {
+        "id": "dots_dashes",
+        "prompt": "an animal body filled with patterns of dots, dashes and fine lines",
+        "description": "Bodies of animals and birds are filled with intricate dots, dashes and line patterns.",
+        "tip": "Fill the body shapes with rows of dots and short dashes instead of solid color."
+      },
+      {
+        "id": "vivid_colors",
+        "prompt": "vivid colorful flat folk painting of animals and birds",
+        "description": "Bright, saturated colors, often on dark or colorful backgrounds, with flat color fields.",
+        "tip": "Use bold saturated colors and keep them flat."
+      },
+      {
+        "id": "tree_of_life",
+        "prompt": "a large tree with birds and animals in folk art style",
+        "description": "Nature is central: trees, animals and birds are sacred subjects, with the tree of life a popular motif.",
+        "tip": "Make a tree, an animal or a bird the hero of the composition."
+      },
+      {
+        "id": "flowing_lines",
+        "prompt": "fine parallel flowing lines creating movement, without shading",
+        "description": "Fine parallel lines follow the shape of the body and give a sense of movement without shading.",
+        "tip": "Use groups of fine, parallel lines that follow the curves of the body."
+      }
+    ]
+  },
+  "pattachitra": {
+    "name": "Pattachitra",
+    "origin": "Odisha and West Bengal. Traditional cloth/palm-leaf scroll painting telling mythological stories.",
+    "features": [
+      {
+        "id": "bold_outlines",
+        "prompt": "bold black outlines with flat colors, traditional scroll painting",
+        "description": "Strong, confident black outlines with flat color fills and no shading.",
+        "tip": "Make your outlines bold and continuous, and fill with flat color."
+      },
+      {
+        "id": "big_eyes",
+        "prompt": "faces with large elongated eyes of mythological characters",
+        "description": "Characters have large, elongated eyes and stylized, expressive faces.",
+        "tip": "Draw long, wide eyes and keep faces stylized, never realistic."
+      },
+      {
+        "id": "floral_border",
+        "prompt": "a decorative floral border around a painting",
+        "description": "A decorative border of flowers or vines frames the central scene.",
+        "tip": "Add a continuous floral or vine border around the artwork."
+      },
+      {
+        "id": "natural_palette",
+        "prompt": "limited palette of red yellow white black and indigo",
+        "description": "Natural pigments: a limited palette of red, yellow, white, black and indigo/blue.",
+        "tip": "Restrict yourself to red, yellow, white, black and a touch of blue for an authentic look."
+      },
+      {
+        "id": "mythology",
+        "prompt": "a mythological scene of Hindu gods in a flat folk style",
+        "description": "Stories from the Ramayana, Mahabharata and Krishna/Jagannath legends are the main subjects.",
+        "tip": "Choose a mythological story and show its characters clearly."
+      }
+    ]
+  }
+}

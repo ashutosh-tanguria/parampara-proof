@@ -1,0 +1,18 @@
+{
+  "classes": [
+    "gond",
+    "madhubani",
+    "pattachitra",
+    "warli"
+  ],
+  "sklearn_version": "1.6.1",
+  "files": {
+    "clf.joblib": "28563db107c33513c526145303af76977136ed14eb06ee705f4121cf072a8328",
+    "feature_stats.json": "b42dbe119717ab8aeb89505db9bcec157c5aa85c9b4edc7c59acfde2faf12093",
+    "text_feats.json": "2524953b90bc9ba8e19334b7d2f15c53bca1cb1730909d49fdaec0758d58af3a",
+    "clip_features.json": "4cf53ec4d332a012d9f6b30aa07d4176d927d01ba3f1de04b9e9dc4ec60c1789",
+    "model_meta.json": "99f49b31a06aed5f2eae6bd7a53e17d6abfff1f0ac7ea59ee66792072c325111",
+    "knowledge_base.json": "2f9070c4905a7923ef3657bb3b7d083ce550e3865f08311da80959c3bf37155a",
+    "image_credits.csv": "7e94ee7bff356347421863ed4d0feccd68425f0aa4e0b2519ed9f3837003d998"
+  }
+}

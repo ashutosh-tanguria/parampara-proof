@@ -1,0 +1,16 @@
+{
+  "clip_model": "openai/clip-vit-base-patch32",
+  "classes": [
+    "gond",
+    "madhubani",
+    "pattachitra",
+    "warli"
+  ],
+  "arts": [
+    "madhubani",
+    "warli",
+    "gond",
+    "pattachitra"
+  ],
+  "sklearn_version": "1.6.1"
+}

@@ -1,0 +1,142 @@
+{
+  "madhubani/double_border": {
+    "mean_own": 0.25200575590133667,
+    "std_own": 0.04920482797718048,
+    "mean_other": 0.26248034834861755,
+    "gap_in_std": -0.21,
+    "reliable": false
+  },
+  "madhubani/fill_patterns": {
+    "mean_own": 0.2194390743970871,
+    "std_own": 0.03014459809458256,
+    "mean_other": 0.22566597163677216,
+    "gap_in_std": -0.21,
+    "reliable": false
+  },
+  "madhubani/no_empty_space": {
+    "mean_own": 0.23965516686439514,
+    "std_own": 0.0446002611348629,
+    "mean_other": 0.24991242587566376,
+    "gap_in_std": -0.23,
+    "reliable": false
+  },
+  "madhubani/motifs": {
+    "mean_own": 0.23387295007705688,
+    "std_own": 0.06029182089662552,
+    "mean_other": 0.24291464686393738,
+    "gap_in_std": -0.15,
+    "reliable": false
+  },
+  "madhubani/faces_eyes": {
+    "mean_own": 0.18918956816196442,
+    "std_own": 0.03565799979662895,
+    "mean_other": 0.19682128727436066,
+    "gap_in_std": -0.21,
+    "reliable": false
+  },
+  "madhubani/flat_bold_color": {
+    "mean_own": 0.19790515303611755,
+    "std_own": 0.0329897755215168,
+    "mean_other": 0.1860165297985077,
+    "gap_in_std": 0.36,
+    "reliable": false
+  },
+  "warli/white_on_earth": {
+    "mean_own": 0.23182347416877747,
+    "std_own": 0.03708288980817795,
+    "mean_other": 0.20260538160800934,
+    "gap_in_std": 0.79,
+    "reliable": true
+  },
+  "warli/geometric_figures": {
+    "mean_own": 0.2168264091014862,
+    "std_own": 0.036828582865953446,
+    "mean_other": 0.179739311337471,
+    "gap_in_std": 1.01,
+    "reliable": true
+  },
+  "warli/circle_dance": {
+    "mean_own": 0.21853989362716675,
+    "std_own": 0.02938717393374443,
+    "mean_other": 0.20100852847099304,
+    "gap_in_std": 0.6,
+    "reliable": true
+  },
+  "warli/village_scenes": {
+    "mean_own": 0.20600157976150513,
+    "std_own": 0.03820784552192688,
+    "mean_other": 0.18896928429603577,
+    "gap_in_std": 0.45,
+    "reliable": false
+  },
+  "warli/geometric_frame": {
+    "mean_own": 0.21521086990833282,
+    "std_own": 0.031434746218681336,
+    "mean_other": 0.2192569375038147,
+    "gap_in_std": -0.13,
+    "reliable": false
+  },
+  "gond/dots_dashes": {
+    "mean_own": 0.24115809798240662,
+    "std_own": 0.044907366616487504,
+    "mean_other": 0.22584699094295502,
+    "gap_in_std": 0.34,
+    "reliable": false
+  },
+  "gond/vivid_colors": {
+    "mean_own": 0.24308767914772034,
+    "std_own": 0.0604296752641201,
+    "mean_other": 0.21974267065525055,
+    "gap_in_std": 0.39,
+    "reliable": false
+  },
+  "gond/tree_of_life": {
+    "mean_own": 0.24429142475128174,
+    "std_own": 0.07248247577047348,
+    "mean_other": 0.2281501442193985,
+    "gap_in_std": 0.22,
+    "reliable": false
+  },
+  "gond/flowing_lines": {
+    "mean_own": 0.22705239057540894,
+    "std_own": 0.01697042560374737,
+    "mean_other": 0.21873684227466583,
+    "gap_in_std": 0.49,
+    "reliable": false
+  },
+  "pattachitra/bold_outlines": {
+    "mean_own": 0.2333921194076538,
+    "std_own": 0.021817380321979524,
+    "mean_other": 0.23087875545024872,
+    "gap_in_std": 0.12,
+    "reliable": false
+  },
+  "pattachitra/big_eyes": {
+    "mean_own": 0.2372610867023468,
+    "std_own": 0.019771989194512368,
+    "mean_other": 0.2220073640346527,
+    "gap_in_std": 0.77,
+    "reliable": true
+  },
+  "pattachitra/floral_border": {
+    "mean_own": 0.24654819071292877,
+    "std_own": 0.02396980090236664,
+    "mean_other": 0.23640193045139313,
+    "gap_in_std": 0.42,
+    "reliable": false
+  },
+  "pattachitra/natural_palette": {
+    "mean_own": 0.21491321921348572,
+    "std_own": 0.015061486271977424,
+    "mean_other": 0.22103163599967957,
+    "gap_in_std": -0.41,
+    "reliable": false
+  },
+  "pattachitra/mythology": {
+    "mean_own": 0.27797815203666687,
+    "std_own": 0.044923176748514176,
+    "mean_other": 0.25926047563552856,
+    "gap_in_std": 0.42,
+    "reliable": false
+  }
+}

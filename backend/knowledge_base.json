@@ -1,0 +1,277 @@
+{
+  "madhubani": {
+    "name": "Madhubani / Mithila Painting",
+    "origin": "Mithila region of Bihar (India) and parts of Nepal. Traditionally created by women on freshly plastered mud walls and floors of huts during festivals and ceremonies, now practiced on handmade paper, canvas, and cloth.",
+    "automated_supported": true,
+    "quote": "Madhubani is not just art, it is a way of life, a reflection of our stories, nature and beliefs. — Traditional Artist, Mithila",
+    "overview": "Vibrant colors, intricate patterns and deep cultural stories from the Mithila region of Bihar. Characterized by double-line borders, geometric hatching, stylized profiles with elongated almond eyes, and total absence of empty space.",
+    "key_characteristics": [
+      {
+        "id": "double_border",
+        "title": "Double-Line Border",
+        "description": "Paintings are enclosed within a distinct double-line border, traditionally filled with repeating floral or geometric creepers.",
+        "tip": "Draw two parallel boundary lines around the artwork and fill the band with a repeating vine, petal, or geometric zigzag motif."
+      },
+      {
+        "id": "fill_patterns",
+        "title": "Intricate Line Fill Patterns",
+        "description": "Figures and background elements are filled with delicate hatching (Kachni), cross-hatching, and stippling dots instead of smooth gradients or 3D shading.",
+        "tip": "Replace any smooth gradient or 3D shading with fine linear hatching, parallel strokes, or tiny dots."
+      },
+      {
+        "id": "no_empty_space",
+        "title": "Dense Composition (No Empty Space)",
+        "description": "The composition is richly packed. Empty background gaps between primary subjects are populated with birds, fish, flowers, leaves, sun, and stylized flora.",
+        "tip": "Check for blank white patches and gently fill them with smaller foliage, stylized leaves, or micro-motifs."
+      },
+      {
+        "id": "motifs",
+        "title": "Traditional Symbolic Motifs",
+        "description": "Peacock (beauty & love), fish (fertility & prosperity), lotus (purity), sun & moon (divine cosmic balance), and elephants (strength).",
+        "tip": "Include at least one traditional symbolic motif such as a twin-fish pair, a crested peacock, or a circular sacred sun."
+      },
+      {
+        "id": "faces_eyes",
+        "title": "Profile Faces with Large Almond Eyes",
+        "description": "Human and divine figures are depicted in sharp profile with prominent pointed noses and oversized, wide almond-shaped eyes.",
+        "tip": "Draw faces strictly in profile with large almond eyes outlined with double lashes, avoiding realistic western proportions."
+      },
+      {
+        "id": "flat_bold_color",
+        "title": "Flat Natural Colors with Bold Outlines",
+        "description": "Pure flat blocks of mineral and plant-derived pigments outlined in deep lampblack (kajal) or natural dye lines.",
+        "tip": "Keep colors flat and saturated. Apply a solid black outline to all elements after coloring."
+      }
+    ],
+    "materials_and_techniques": [
+      "Bamboo twigs wrapped in raw cotton or nib pens for delicate line work",
+      "Lampblack (Kajal) soot mixed with cow dung or gum for permanent black linework",
+      "Natural plant dyes: Turmeric (yellow), Indigo (deep blue), Kusum flower (red), Bael leaf (green)",
+      "Handmade paper treated with cow dung wash to create an authentic parchment texture"
+    ],
+    "common_mistakes": [
+      "Using western 3D shading, shadows, and perspective instead of flat planes",
+      "Leaving large empty background spaces without decorative motifs",
+      "Drawing realistic faces with front-facing symmetry instead of traditional profile outlines",
+      "Using irregular or fuzzy single borders instead of defined double borders"
+    ],
+    "next_exercise": "Practice drawing a Madhubani peacock in profile: frame with a double-line border, fill the wings with fine parallel Kachni hatching, and surround with lotus leaves."
+  },
+  "warli": {
+    "name": "Warli Painting",
+    "origin": "Warli indigenous tribe residing in the North Sahyadri range of Maharashtra (Thane and Palghar districts). Traditionally painted on mud walls of village huts during weddings and harvest festivals.",
+    "automated_supported": true,
+    "quote": "Our drawings do not use scales or rulers. They represent our mother earth, our dance, and our harmony with the forest. — Warli Tribal Elder",
+    "overview": "Minimalist tribal art celebrating harmony with nature, community spirit, and cyclical village life. Painted using white rice paste on red-ochre (geru) or mud-plastered surfaces using elemental geometric forms.",
+    "key_characteristics": [
+      {
+        "id": "white_on_earth",
+        "title": "White on Earthy Mud Base",
+        "description": "Monochromatic white pigment (ground rice paste mixed with water and binding gum) applied against a rich red-ochre or cow-dung mud background.",
+        "tip": "Keep the palette strictly monochromatic: white linework against a warm terracotta or earth-brown background."
+      },
+      {
+        "id": "geometric_figures",
+        "title": "Elemental Geometric Anatomy",
+        "description": "Human and animal figures are constructed from fundamental shapes: two inverted triangles joined at their vertices representing the torso, topped by a circle for the head.",
+        "tip": "Construct figures with two touching triangles for the upper and lower torso, a circular head, and single-stroke limbs."
+      },
+      {
+        "id": "circle_dance",
+        "title": "Tarpa Circle Dance Movement",
+        "description": "Dancers holding hands in a spiral or circular formation around the central Tarpa musician, symbolizing the cyclical rhythm of life and harvest.",
+        "tip": "Arrange dancing stick figures along concentric circles or spirals, linking hands to convey rhythmic communal motion."
+      },
+      {
+        "id": "village_scenes",
+        "title": "Cyclical Village & Nature Themes",
+        "description": "Scenes depict daily agrarian life: harvesting paddy, hunting, wedding processions, domestic animals, and the sacred Tree of Life.",
+        "tip": "Show everyday agrarian activities without perspective or horizon lines; scatter huts, birds, and deer across the space."
+      },
+      {
+        "id": "geometric_frame",
+        "title": "Geometric Triangle Border",
+        "description": "Borders feature repetitive linear motifs, ladder patterns, chevron triangles, and interconnected zigzags.",
+        "tip": "Enclose the scene with a border of small repeating triangles pointing inward or alternating ladder patterns."
+      }
+    ],
+    "materials_and_techniques": [
+      "Rice paste mixed with water and gum arabica for brilliant, durable white pigment",
+      "Chewed bamboo stick (kalam) acting as a flexible natural brush",
+      "Red-ochre (Geru), brick powder, and cow-dung mud plaster base providing warm earthy contrast",
+      "No preliminary pencil sketches; painted directly from ancestral memory"
+    ],
+    "common_mistakes": [
+      "Adding multi-colored paint pigments which disrupt traditional Warli monochromatic purity",
+      "Drawing realistic curved torsos or anatomical muscles instead of clean inverted triangles",
+      "Using complex western perspective with vanishing points and shadows",
+      "Inconsistent stroke thickness where figures look disjointed"
+    ],
+    "next_exercise": "Create a 5-figure Tarpa circle dance: begin with a central musician, draw 5 figures using connected inverted triangles with linked arms, framed by a chevron border."
+  },
+  "gond": {
+    "name": "Gond Painting",
+    "origin": "Pardhan Gond tribal community of Madhya Pradesh (predominantly Patangarh, Dindori region). Rooted in the belief that viewing good images begets good luck.",
+    "automated_supported": true,
+    "quote": "When we paint, we do not simply paint a bird or a tree. We paint the spirit inside it. — Gond Master Artist",
+    "overview": "Nature-inspired tribal art with vibrant luminous color fields, dynamic undulating contours, and mesmerizing signature repeating patterns of dots, dashes, fish scales, and drops.",
+    "key_characteristics": [
+      {
+        "id": "dots_dashes",
+        "title": "Signature Pattern Textures (Dharmis)",
+        "description": "Every artist creates their own signature textural filling: rhythmic sequences of dots, short dashes, crescents, or scales that bring animal bodies to life.",
+        "tip": "Fill large subject silhouettes with repeating rhythmic rows of fine dots, dashes, or seed-like flecks rather than solid flat fills."
+      },
+      {
+        "id": "vivid_colors",
+        "title": "Luminous Saturated Palette",
+        "description": "Vivid yellows, crimsons, emerald greens, and ultramarines juxtaposed with deep ink outlines.",
+        "tip": "Use bold contrasting color blocks for different body segments to create visual luminosity and energy."
+      },
+      {
+        "id": "tree_of_life",
+        "title": "Sacred Flora and Fauna",
+        "description": "The sacred Mahua tree, Saja tree, deer, flying peacocks, and mythical intertwined creatures representing cosmic interconnectedness.",
+        "tip": "Center your composition around a prominent sacred tree or animal with branching, organic limbs that weave through the canvas."
+      },
+      {
+        "id": "flowing_lines",
+        "title": "Rhythmic Flowing Contours",
+        "description": "Graceful sinuous curves outline all animal and tree forms, conveying movement and vitality without rigid geometric angles.",
+        "tip": "Keep outer silhouettes organic and flowing. Ensure lines curve smoothly around animal necks and tree trunks."
+      }
+    ],
+    "materials_and_techniques": [
+      "Natural local soils: Chuna (limestone white), Geru (red clay), Pili matti (yellow ochre)",
+      "Crushed leaves, charcoal, and neem tree gum binders",
+      "Modern acrylics and fine-tip round brushes on handmade paper to preserve vibrant brightness",
+      "Signature filling patterns that identify individual artists and families"
+    ],
+    "common_mistakes": [
+      "Filling animal silhouettes with completely flat solid color without pattern texture",
+      "Using rigid, straight mechanical lines instead of soft organic contours",
+      "Overcrowding dots without rhythmic spacing, causing visual muddiness"
+    ],
+    "next_exercise": "Draw a Gond deer: paint the base body in vibrant ochre, then systematically apply fine dark-brown dots and short dashes following the contour of the back and neck."
+  },
+  "pattachitra": {
+    "name": "Pattachitra",
+    "origin": "Raghurajpur and Puri in Odisha, and Pingla in West Bengal. Ancient cloth-based scroll painting tradition closely linked with the worship of Lord Jagannath.",
+    "automated_supported": true,
+    "quote": "Each patta is an offering, a sacred cloth narrative carrying centuries of temple lore. — Chitrakar Artisan, Raghurajpur",
+    "overview": "Classical narrative scroll art renowned for disciplined brushwork, floral vine borders, expressive mythological figures with elongated eyes, and a disciplined five-color mineral palette.",
+    "key_characteristics": [
+      {
+        "id": "bold_outlines",
+        "title": "Disciplined Black Outlines",
+        "description": "Exquisite, unbroken brush strokes executed with supreme confidence, defining all figures and anatomical contours.",
+        "tip": "Use continuous, disciplined black outlines to define silhouettes before filling with flat hues."
+      },
+      {
+        "id": "big_eyes",
+        "title": "Expressive Elongated Eyes",
+        "description": "Dramatic, curved fish-tail eyes stretching toward the temples, typical of classical temple sculpture and iconography.",
+        "tip": "Extend figure eyes horizontally with an elegant curve at the outer corner, maintaining a sharp, stylized temple glance."
+      },
+      {
+        "id": "floral_border",
+        "title": "Intricate Foliated Border",
+        "description": "Multi-tiered borders featuring stylized acanthus leaves, creeping vines, and miniature blooming lotuses.",
+        "tip": "Frame your canvas with an ornate floral creeper border containing alternating flower buds and curved leaves."
+      },
+      {
+        "id": "natural_palette",
+        "title": "Traditional Pancha-Varna Palette",
+        "description": "Five primary sacred colors: White (conch shell powder), Red (hingula mineral), Yellow (haritala), Black (lampblack), and Blue (indigo).",
+        "tip": "Limit your palette to traditional primary pigments: conch white, cinnabar red, orpiment yellow, lampblack, and deep blue."
+      }
+    ],
+    "materials_and_techniques": [
+      "Patta cloth prepared by layering cotton cloth with tamarind seed paste and chalk powder, polished with stone",
+      "Mouse-hair brushes for micro-fine detailing and buffalo-hair brushes for broad washes",
+      "Natural lacquer varnish applied with coconut shell smoke to make the scroll waterproof and luminous"
+    ],
+    "common_mistakes": [
+      "Shaky, broken outline strokes instead of smooth continuous linework",
+      "Using modern synthetic neon colors outside the Pancha-Varna tradition",
+      "Omitting the decorative floral border which is essential for traditional scroll completion"
+    ],
+    "next_exercise": "Practice drawing an ornate Pattachitra border corner featuring a blooming lotus bud nestled inside curving acanthus leaves."
+  },
+  "kalamkari": {
+    "name": "Kalamkari",
+    "origin": "Srikalahasti and Machilipatnam in Andhra Pradesh. Historic hand-painted and block-printed cotton textile art tradition dating back over 3,000 years.",
+    "automated_supported": false,
+    "quote": "The kalam (pen) is made of bamboo, but it writes poetry in natural vegetable dyes on unbleached cotton. — Kalamkari Master Craftsman",
+    "overview": "Ancient textile art executed with a bamboo reed pen (kalam) and fermented natural vegetable dyes. Celebrates epic narratives, intricate tree of life tapestries, and ornate peacock medallions.",
+    "key_characteristics": [
+      {
+        "id": "kalam_pen",
+        "title": "Bamboo Reed Kalam Linework",
+        "description": "Drawn using a sharpened bamboo reed wrapped with wool or cotton yarn that acts as a reservoir for fermented iron rust ink.",
+        "tip": "Notice the warm, fluid organic character of hand-drawn reed pen strokes with subtle flow variation."
+      },
+      {
+        "id": "natural_dyes",
+        "title": "Earthy Vegetable Dye Palette",
+        "description": "Muted, earthy hues derived from madder root (red), fermented iron jaggery (black), pomegranate rind (mustard yellow), and alum mordants.",
+        "tip": "Embrace warm earthy tones: brick red, mustard yellow, indigo blue, and warm charcoal black."
+      },
+      {
+        "id": "paisley_peacock",
+        "title": "Paisley and Peacock Medallions",
+        "description": "Elaborate mango motifs (kalka), peacocks with scrolling plumage, and blooming lotus roundels.",
+        "tip": "Study the intricate curvilinear feather patterns inside traditional Kalamkari peacock wings."
+      }
+    ],
+    "materials_and_techniques": [
+      "Unbleached cotton cloth treated with buffalo milk and myrobalan seed extract",
+      "Kasimi (fermented iron jaggery water) for permanent black outlines",
+      "Alum mordanting followed by boiling in madder root for deep, colorfast red tones",
+      "Repeated river washing in flowing water to fix vegetable dyes"
+    ],
+    "common_mistakes": [
+      "Using harsh chemical colors instead of soft vegetal tones",
+      "Skipping background wash preparation which gives traditional unbleached ecru warmth"
+    ],
+    "next_exercise": "Study the curvilinear leaf and feather fillings of a traditional Kalamkari Tree of Life branch."
+  },
+  "pottery": {
+    "name": "Traditional Pottery & Terracotta",
+    "origin": "Practiced across the Indian subcontinent for over 5,000 years since the Indus Valley Civilization. Prominent centers include Kumartuli (Bengal), Molela (Rajasthan), and Nizamabad (Uttar Pradesh).",
+    "automated_supported": false,
+    "quote": "Earth, water, air and fire: the potter gives shape to the elements that give shape to life. — Traditional Kumbhakar",
+    "overview": "Timeless craft of shaping river silt and clay into ceremonial vessels, matkas, votive terracotta sculptures, and ornate domestic ware. Combines thrown geometry with hand-carved relief motifs.",
+    "key_characteristics": [
+      {
+        "id": "clay_form",
+        "title": "Harmonious Vessel Proportions",
+        "description": "Graceful rotational symmetry, balanced neck-to-belly ratios, and functional stability perfected across generations.",
+        "tip": "Observe how traditional Indian matkas maintain smooth circular curvature and balanced bellies."
+      },
+      {
+        "id": "earthen_slip",
+        "title": "Natural Slip and Smoke Firing",
+        "description": "Surfaces finished with fine clay slip (Geru wash) or burnished with river pebbles before open-kiln wood firing or reduction smoke blackening.",
+        "tip": "Notice the subtle natural gradient of terracotta red to smoke-kissed dark amber."
+      },
+      {
+        "id": "incised_relief",
+        "title": "Incised Geometric Ornamentation",
+        "description": "Surface combed bands, notched wheel rings, impressed stamps, and hand-molded clay rosettes.",
+        "tip": "Add relief bands around the shoulder of the pot featuring notched chevron or wave patterns."
+      }
+    ],
+    "materials_and_techniques": [
+      "Alluvial clay blended with fine river sand and husk temper for tensile strength",
+      "Traditional manual stone or wooden flywheel propelled with a bamboo pole",
+      "Beating with a wooden paddle (piṭnā) and anvil (pindi) to compress wall thickness",
+      "Open straw and cow-dung pit kilns firing at 750°C to 900°C"
+    ],
+    "common_mistakes": [
+      "Asymmetric wall thickness causing collapse during drying or firing",
+      "Overly sharp, non-ergonomic rims that crack easily"
+    ],
+    "next_exercise": "Sketch a classic Indian earthen surahi (long-necked water pot) with relief floral carving on the shoulder."
+  }
+}
