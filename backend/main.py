@@ -20,7 +20,7 @@ from pydantic import BaseModel
 
 from . import chat as chat_module
 from .config import Settings, load_settings
-from .content import AUTOMATED, CATALOGUE, COMMON_MISTAKES, GALLERY, LESSONS, SAMPLE_POSTS, hero_image, load_credits
+from .content import AUTOMATED, CATALOGUE, COMMON_MISTAKES, GALLERY, LESSONS, SAMPLE_POSTS, clean_quote, hero_image, load_credits
 from .errors import AppError, error_response, install_error_handlers
 from .model_service import Knowledge, ModelService
 from .stores import BoundedStore, RateLimiter
@@ -185,7 +185,7 @@ def create_app(settings: Settings | None = None, service: ModelService | None = 
             if not info:
                 continue
             out.append({"slug": slug, "name": info.get("name", slug.capitalize()), "subtitle": subtitle, "category": category, "image_slug": image,
-                        "automated_supported": slug in AUTOMATED, "origin": info.get("origin", ""), "quote": info.get("quote", ""), "overview": info.get("overview", "")})
+                        "automated_supported": slug in AUTOMATED, "origin": info.get("origin", ""), "quote": clean_quote(info.get("quote")), "overview": info.get("overview", "")})
         return {"art_forms": out}
 
     @app.get("/api/art-forms/{slug}")
@@ -196,7 +196,7 @@ def create_app(settings: Settings | None = None, service: ModelService | None = 
             raise AppError(404, "art_form_not_found", f"We could not find an art form called '{clean_text(slug, 40)}'.")
         return {
             "slug": key, "name": info.get("name", key.capitalize()), "image_slug": hero_image(key), "automated_supported": key in AUTOMATED,
-            "origin": info.get("origin", ""), "quote": info.get("quote", ""), "overview": info.get("overview", ""),
+            "origin": info.get("origin", ""), "quote": clean_quote(info.get("quote")), "overview": info.get("overview", ""),
             "key_characteristics": info.get("key_characteristics", []), "materials_and_techniques": info.get("materials_and_techniques", []),
             "common_mistakes": info.get("common_mistakes", []), "next_exercise": info.get("next_exercise", ""),
             "gallery": [{"title": t, "image_slug": s} for t, s in GALLERY.get(key, [])],

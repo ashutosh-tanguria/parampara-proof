@@ -1,7 +1,7 @@
 """Rule-based coach. Answers come only from knowledge_base.json; there is no language model."""
 import re
 
-from .content import AUTOMATED, CATALOGUE, hero_image
+from .content import AUTOMATED, CATALOGUE, clean_quote, hero_image
 
 MAX_MESSAGE_CHARS = 500
 ALIASES = {"mithila": "madhubani", "patachitra": "pattachitra", "patta chitra": "pattachitra", "terracotta": "pottery", "clay": "pottery", "tarpa": "warli"}
@@ -85,7 +85,7 @@ def reply(kb: dict, message: str, art_form: str | None = None) -> dict:
     else:
         parts = [info.get("overview", "")]
         if info.get("quote"):
-            parts.append(f"> {info['quote']}")
+            parts.append(f"> Illustrative line from the team notes: {clean_quote(info['quote'])}")
         if info.get("next_exercise"):
             parts.append(f"**Suggested practice:** {info['next_exercise']}")
         text = "\n\n".join(p for p in parts if p) or f"I have limited notes on {name} so far."

@@ -58,6 +58,13 @@ SAMPLE_POSTS = [
 ]
 
 
+def clean_quote(quote: str | None) -> str:
+    """Drop the invented attribution (for example "- Gond Master Artist"): the lines are unattributed notes, not citations."""
+    q = (quote or "").strip()
+    q = re.split(r"\s[—–-]\s(?=[A-Z][^\"]{0,60}$)", q)[0].strip()
+    return q.strip("\"“” ")
+
+
 def hero_image(slug: str) -> str | None:
     return CATALOGUE.get(slug, (None, None, None))[2]
 
